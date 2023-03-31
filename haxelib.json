@@ -12,5 +12,8 @@
 	"releasenote":"First Release.",
 	"contributors":[
 		"MAJigsaw77"
-	]
+	],
+	"dependencies":{
+		"yagp":""
+	}
 }
