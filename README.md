@@ -1,6 +1,6 @@
 # flxgif
 
-Yagp's Gif Player for HaxeFlixel.
+[Yagp's Gif Player](https://github.com/yanrishatum/yagp/) for HaxeFlixel.
 
 ### Installation
 
