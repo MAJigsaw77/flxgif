@@ -115,7 +115,7 @@ class GifDecoder
     var decoder:GifDecoder = new GifDecoder(gifBytes);
     return decoder.decodeAsync(completeHandler, errorHandler);
     #else
-    trace("Asynchronous parsing currently only supported on neko and cpp platforms.");
+    trace("Asynchronous parsing currently only supported on sys platforms.");
     return false;
     #end
   }
@@ -134,7 +134,7 @@ class GifDecoder
     #if sys
     return parseBytesAsync(byteArray, completeHandler, errorHandler);
     #else
-    trace("Asynchronous parsing currently only supported on neko and cpp platforms.");
+    trace("Asynchronous parsing currently only supported on sys platforms.");
     return false;
     #end
   }
@@ -153,7 +153,7 @@ class GifDecoder
     #if sys
     return parseBytesAsync(Bytes.ofString(text), completeHandler, errorHandler);
     #else
-    trace("Asynchronous parsing currently only supported on neko and cpp platforms.");
+    trace("Asynchronous parsing currently only supported on sys platforms.");
     return false;
     #end
   }
@@ -247,7 +247,7 @@ class GifDecoder
     Thread.create(_decodeAsync);
     return true;
     #else
-    trace("Asynchronous parsing currently only supported on neko and cpp platforms.");
+    trace("Asynchronous parsing currently only supported on sys platforms.");
     return false;
     #end
   }
