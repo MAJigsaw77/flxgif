@@ -18,11 +18,6 @@ import haxe.io.Bytes;
 class FlxGifSprite extends FlxSprite
 {
 	/**
-	 * The TimeScale for this.
-	 */
-	public var timeScale:Float = 1;
-
-	/**
 	 * The Gif Player.
 	 */
 	public var player(default, null):GifPlayer;
@@ -84,7 +79,7 @@ class FlxGifSprite extends FlxSprite
 	override function update(elapsed:Float):Void
 	{
 		if (player != null)
-			player.update(elapsed * timeScale);
+			player.update(elapsed);
 
 		super.update(elapsed);
 	}
