@@ -148,11 +148,11 @@ class FlxGifSprite extends FlxSprite
 	@:noCompletion private inline function set_animationEndHandler(value:Void->Void):Void->Void
 		return player == null ? value : (player.animationEndHandler = value);
 
-	@:noCompletion private inline function get_animationEndHandler():Void->Void
-		return player == null ? null : player.animationEndHandler;
+	@:noCompletion private inline function get_loopEndHandler():Void->Void
+		return player == null ? null : player.loopEndHandler;
 
-	@:noCompletion private inline function set_animationEndHandler(value:Void->Void):Void->Void
-		return player == null ? value : (player.animationEndHandler = value);
+	@:noCompletion private inline function set_loopEndHandler(value:Void->Void):Void->Void
+		return player == null ? value : (player.loopEndHandler = value);
 
 	@:noCompletion private function get_frame():Int
 		return player == null ? -1 : player.frame;
