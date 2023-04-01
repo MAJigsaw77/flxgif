@@ -40,12 +40,12 @@ class FlxGifSprite extends FlxSprite
 	/**
 	 * Current frame index.
 	 */
-	public var frame(get, set):Int;
+	public var curFrame(get, set):Int;
 
 	/**
 	 * Amount of frames in assigned Gif file.
 	 */
-	public var framesCount(get, never):Int;
+	public var curFramesCount(get, never):Int;
 
 	/**
 	 * The Gif Player.
@@ -154,12 +154,12 @@ class FlxGifSprite extends FlxSprite
 	@:noCompletion private inline function set_loopEndHandler(value:Void->Void):Void->Void
 		return player == null ? value : (player.loopEndHandler = value);
 
-	@:noCompletion private function get_frame():Int
+	@:noCompletion private function get_curFrame():Int
 		return player == null ? -1 : player.frame;
 
-	@:noCompletion private function set_frame(value:Int):Int
+	@:noCompletion private function set_curFrame(value:Int):Int
 		return player == null ? value : (player.frame = value);
 
-	@:noCompletion private function get_framesCount():Int
+	@:noCompletion private function get_curFramesCount():Int
 		return player == null ? 0 : player.framesCount;
 }
