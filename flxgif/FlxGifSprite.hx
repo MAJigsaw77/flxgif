@@ -111,7 +111,7 @@ class FlxGifSprite extends FlxSprite
 	 *
 	 * @param play If set to true, will force `playing` value to true.
 	 */
-	public function reset(play:Bool = false):Void
+	public function resetPlayer(play:Bool = false):Void
 	{
 		if (player != null)
 			player.reset(play);
