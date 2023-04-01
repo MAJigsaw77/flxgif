@@ -17,34 +17,15 @@ import haxe.io.Bytes;
 @:access(openfl.utils.ByteArrayData)
 class FlxGifSprite extends FlxSprite
 {
+	/**
+	 * The TimeScale for this.
+	 */
 	public var timeScale:Float = 1;
 
 	/**
-	 * If the player must play the animation?
+	 * The Gif Player.
 	 */
-	public var playing(get, set):Bool;
-
-	/**
-	 * Handler of animation end. Note, it will be called only if animation does not have infinite amount of loops.
-	 */
-	public var animationEndHandler(get, set):Void->Void;
-
-	/**
-	 * Handler of animation loop end. Will be called on end of each loop.
-	 */
-	public var loopEndHandler(get, set):Void->Void;
-
-	/**
-	 * Current frame index.
-	 */
-	public var curFrame(get, set):Int;
-
-	/**
-	 * Amount of frames in assigned Gif file.
-	 */
-	public var curFramesCount(get, never):Int;
-
-	private var player:GifPlayer;
+	public var player(default, null):GifPlayer;
 
 	/**
 	 * Creates a `FlxGifSprite` at a specified position with a specified gif.
@@ -100,17 +81,6 @@ class FlxGifSprite extends FlxSprite
 		return this;
 	}
 
-	/**
-	 * Resets player state. Use it foor reset loop counter.
-	 *
-	 * @param play If set to true, will force `playing` value to true.
-	 */
-	public function resetPlayer(play:Bool = false):Void
-	{
-		if (player != null)
-			player.reset(play);
-	}
-
 	override function update(elapsed:Float):Void
 	{
 		if (player != null)
@@ -129,31 +99,4 @@ class FlxGifSprite extends FlxSprite
 			
 		super.destroy();
 	}
-
-	@:noCompletion private function get_playing():Bool
-		return player == null ? false : player.playing;
-
-	@:noCompletion private function set_playing(value:Bool):Bool
-		return player == null ? value : (player.playing = value);
-
-	@:noCompletion private inline function get_animationEndHandler():Void->Void
-		return player == null ? null : player.animationEndHandler;
-
-	@:noCompletion private inline function set_animationEndHandler(value:Void->Void):Void->Void
-		return player == null ? value : (player.animationEndHandler = value);
-
-	@:noCompletion private inline function get_loopEndHandler():Void->Void
-		return player == null ? null : player.loopEndHandler;
-
-	@:noCompletion private inline function set_loopEndHandler(value:Void->Void):Void->Void
-		return player == null ? value : (player.loopEndHandler = value);
-
-	@:noCompletion private function get_curFrame():Int
-		return player == null ? -1 : player.frame;
-
-	@:noCompletion private function set_curFrame(value:Int):Int
-		return player == null ? value : (player.frame = value);
-
-	@:noCompletion private function get_curFramesCount():Int
-		return player == null ? 0 : player.framesCount;
 }
