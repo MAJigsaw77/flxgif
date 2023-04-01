@@ -17,9 +17,6 @@ import haxe.io.Bytes;
 @:access(openfl.utils.ByteArrayData)
 class FlxGifSprite extends FlxSprite
 {
-	/**
-	 * The Timescale for this.
-	 */
 	public var timeScale:Float = 1;
 
 	/**
@@ -47,10 +44,7 @@ class FlxGifSprite extends FlxSprite
 	 */
 	public var curFramesCount(get, never):Int;
 
-	/**
-	 * The Gif Player.
-	 */
-	public var player:GifPlayer;
+	private var player:GifPlayer;
 
 	/**
 	 * Creates a `FlxGifSprite` at a specified position with a specified gif.
