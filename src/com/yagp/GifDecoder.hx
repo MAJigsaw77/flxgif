@@ -102,7 +102,7 @@ class GifDecoder
   /**
    * Decodes Gif file from Bytes data stream asynchonously
    * 
-   * Note: Supported only neko and cpp targets!
+   * Note: Supported only sys targets!
    * @param bytes Input data stream.
    * @param completeHandler Callback to which send decoded Gif file.
    * @param errorHandler Callback to which send reports about occured error while decoding Gif file.
@@ -123,7 +123,7 @@ class GifDecoder
   /**
    * Decodes Gif file from ByteArray data stream asynchonously
    * 
-   * Note: Supported only neko and cpp targets!
+   * Note: Supported only sys targets!
    * @param byteArray Input data stream.
    * @param completeHandler Callback to which send decoded Gif file.
    * @param errorHandler Callback to which send reports about occured error while decoding Gif file.
@@ -142,7 +142,7 @@ class GifDecoder
   /**
    * Decodes Gif file from String asynchonously
    * 
-   * Note: Supported only neko and cpp targets!
+   * Note: Supported only sys targets!
    * @param text Input String data.
    * @param completeHandler Callback to which send decoded Gif file.
    * @param errorHandler Callback to which send reports about occured error while decoding Gif file.
