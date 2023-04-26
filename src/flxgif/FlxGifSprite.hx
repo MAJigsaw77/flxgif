@@ -1,4 +1,4 @@
-#package flxgif;
+package flxgif;
 
 import com.yagp.GifDecoder;
 import com.yagp.GifPlayer;
