@@ -2,6 +2,7 @@ package flxgif;
 
 import com.yagp.GifDecoder;
 import com.yagp.GifPlayer;
+import flixel.FlxG;
 import flixel.FlxSprite;
 import flxgif.FlxGifAsset;
 import openfl.utils.Assets;
