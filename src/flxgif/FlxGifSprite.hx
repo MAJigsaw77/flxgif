@@ -1,13 +1,13 @@
-package flxgif;
+#package flxgif;
 
 import com.yagp.GifDecoder;
 import com.yagp.GifPlayer;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flxgif.FlxGifAsset;
+import haxe.io.Bytes;
 import openfl.utils.Assets;
 import openfl.utils.ByteArray;
-import haxe.io.Bytes;
 
 /**
  * `FlxGifSprite` is made for displaying gif files using `Yagp`.
@@ -100,6 +100,7 @@ class FlxGifSprite extends FlxSprite
 	{
 		#if !sys
 		FlxG.log.warn("Asynchronous parsing currently only supported on sys platforms.");
+
 		return loadGif(Gif, Width, Height, Unique, Key);
 		#else
 		if (player != null)
