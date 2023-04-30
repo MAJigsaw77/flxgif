@@ -72,7 +72,9 @@ class FlxGifSprite extends FlxSprite
 		else // String case
 			player = new GifPlayer(GifDecoder.parseByteArray(Assets.getBytes(Std.string(Gif))));
 
-		return loadGraphic(player.data, false, Width, Height, Unique, Key);
+		loadGraphic(player.data, false, Width, Height, Unique, Key);
+
+		return this;
 	}
 
 	/**
@@ -116,7 +118,9 @@ class FlxGifSprite extends FlxSprite
 		else // String case
 			player = new GifPlayer(GifDecoder.parseByteArrayAsync(Assets.getBytes(Std.string(Gif))));
 
-		return loadGraphic(player.data, false, Width, Height, Unique, Key);
+		loadGraphic(player.data, false, Width, Height, Unique, Key);
+
+		return this;
 		#end
 	}
 
