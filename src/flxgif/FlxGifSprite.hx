@@ -77,53 +77,6 @@ class FlxGifSprite extends FlxSprite
 		return this;
 	}
 
-	/**
-	 * Load an gif from an embedded gif file asynchonously.
-	 *
-	 * Note: Supported only sys targets!
-	 *
-	 * HaxeFlixel's graphic caching system keeps track of loaded image data.
-	 * When you load an identical copy of a previously used image, by default
-	 * HaxeFlixel copies the previous reference onto the `pixels` field instead
-	 * of creating another copy of the image data, to save memory.
-	 *
-	 * @param   Gif        The gif you want to use.
-	 * @param   Width      Specify the width of your sprite
-	 *                     (helps figure out what to do with non-square sprites or sprite sheets).
-	 * @param   Height     Specify the height of your sprite
-	 *                     (helps figure out what to do with non-square sprites or sprite sheets).
-	 * @param   Unique     Whether the gif should be a unique instance in the graphics cache.
-	 *                     Set this to `true` if you want to modify the `pixels` field without changing
-	 *                     the `pixels` of other sprites with the same `BitmapData`.
-	 * @param   Key        Set this parameter if you're loading `BitmapData`.
-	 * @return  This `FlxGifSprite` instance (nice for chaining stuff together, if you're into that).
-	 */
-	public function loadGifAsync(Gif:FlxGifAsset, Width:Int = 0, Height:Int = 0, Unique:Bool = false, ?Key:String):FlxGifSprite
-	{
-		#if !sys
-		FlxG.log.warn("Asynchronous parsing currently only supported on sys platforms.");
-
-		return loadGif(Gif, Width, Height, Unique, Key);
-		#else
-		if (player != null)
-		{
-			player.dispose(true);
-			player = null;
-		}
-
-		if ((Gif is ByteArrayData))
-			player = new GifPlayer(GifDecoder.parseByteArrayAsync(Gif));
-		else if ((Gif is Bytes))
-			player = new GifPlayer(GifDecoder.parseByteArrayAsync(ByteArray.fromBytes(Gif)));
-		else // String case
-			player = new GifPlayer(GifDecoder.parseByteArrayAsync(Assets.getBytes(Std.string(Gif))));
-
-		loadGraphic(player.data, false, Width, Height, Unique, Key);
-
-		return this;
-		#end
-	}
-
 	override function update(elapsed:Float):Void
 	{
 		if (player != null)
