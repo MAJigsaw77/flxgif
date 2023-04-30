@@ -117,7 +117,7 @@ class FlxGifSprite extends FlxSprite
 			player = new GifPlayer(GifDecoder.parseByteArrayAsync(Assets.getBytes(Std.string(Gif))));
 
 		return loadGraphic(player.data, false, Width, Height, Unique, Key);
-		#end#
+		#end
 	}
 
 	override function update(elapsed:Float):Void
