@@ -21,12 +21,12 @@ import openfl.utils.ByteArray;
 class FlxGifSprite extends FlxSprite
 {
 	/**
-	 * The Gif Player.
+	 * The Gif Player (warning: can be `null`).
 	 */
 	public var player(default, null):GifPlayer;
 
 	/**
-	 * The Gif SpriteMap.
+	 * The Gif SpriteMap (warning: can be `null`).
 	 */
 	public var map(default, null):GifMap;
 
