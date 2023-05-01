@@ -70,7 +70,10 @@ class FlxGifSprite extends FlxSprite
 		}
 
 		if (map != null)
-			map = FlxDestroyUtil.dispose(map.data);
+		{
+			map.data = FlxDestroyUtil.dispose(map.data);
+			map = null;
+		}
 
 		if (!AsMap)
 		{
@@ -115,7 +118,10 @@ class FlxGifSprite extends FlxSprite
 		}
 
 		if (map != null)
-			map = FlxDestroyUtil.dispose(map.data);
+		{
+			map.data = FlxDestroyUtil.dispose(map.data);
+			map = null;
+		}
 			
 		super.destroy();
 	}
