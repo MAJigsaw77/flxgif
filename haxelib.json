@@ -3,9 +3,9 @@
 	"url":"https://github.com/MAJigsaw77/flxgif",
 	"license":"MIT",
 	"tags":[
+		"haxe",
 		"gif",
-		"yagp",
-		"flixel"
+		"haxeflixel"
 	],
 	"description":"Yagp's Gif Player for HaxeFlixel.",
 	"version":"1.0.2",
