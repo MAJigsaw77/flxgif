@@ -16,8 +16,6 @@ import openfl.utils.ByteArray;
  * 
  * @author Mihai Alexandru (M.A. Jigsaw).
  */
-@:access(haxe.io.Bytes)
-@:access(openfl.utils.ByteArrayData)
 class FlxGifSprite extends FlxSprite
 {
 	/**
@@ -34,15 +32,15 @@ class FlxGifSprite extends FlxSprite
 	 * Creates a `FlxGifSprite` at a specified position with a specified gif.
 	 * If none is provided, a 16x16 image of the HaxeFlixel logo is used.
 	 *
-	 * @param   X               The initial X position of the sprite.
-	 * @param   Y               The initial Y position of the sprite.
-	 * @param   SimpleGif       The gif you want to display
+	 * @param   x               The initial X position of the sprite.
+	 * @param   y               The initial Y position of the sprite.
+	 * @param   simpleGif       The gif you want to display
 	 */
-	public function new(X:Float = 0, Y:Float = 0, ?SimpleGif:FlxGifAsset):Void
+	public function new(x:Float = 0, y:Float = 0, ?simpleGif:FlxGifAsset):Void
 	{
-		super(X, Y);
-		if (SimpleGif != null)
-			loadGif(SimpleGif);
+		super(x, y);
+		if (simpleGif != null)
+			loadGif(simpleGif);
 	}
 
 	/**
@@ -53,15 +51,15 @@ class FlxGifSprite extends FlxSprite
 	 * HaxeFlixel copies the previous reference onto the `pixels` field instead
 	 * of creating another copy of the image data, to save memory.
 	 *
-	 * @param   Gif        The gif you want to use.
-	 * @param   AsMap      Whether the gif should be loaded as a spritemap to be animated or not.
-	 * @param   Unique     Whether the gif should be a unique instance in the graphics cache.
+	 * @param   gif        The gif you want to use.
+	 * @param   asMap      Whether the gif should be loaded as a spritemap to be animated or not.
+	 * @param   unique     Whether the gif should be a unique instance in the graphics cache.
 	 *                     Set this to `true` if you want to modify the `pixels` field without changing
 	 *                     the `pixels` of other sprites with the same `BitmapData`.
-	 * @param   Key        Set this parameter if you're loading `BitmapData`.
+	 * @param   key        Set this parameter if you're loading `BitmapData`.
 	 * @return  This `FlxGifSprite` instance (nice for chaining stuff together, if you're into that).
 	 */
-	public function loadGif(Gif:FlxGifAsset, AsMap:Bool = false, Unique:Bool = false, ?Key:String):FlxGifSprite
+	public function loadGif(gif:FlxGifAsset, asMap:Bool = false, unique:Bool = false, ?key:String):FlxGifSprite
 	{
 		if (player != null)
 		{
@@ -75,27 +73,27 @@ class FlxGifSprite extends FlxSprite
 			map = null;
 		}
 
-		if (!AsMap)
+		if (!asMap)
 		{
-			if ((Gif is ByteArrayData))
-				player = new GifPlayer(GifDecoder.parseByteArray(Gif));
-			else if ((Gif is Bytes))
-				player = new GifPlayer(GifDecoder.parseByteArray(ByteArray.fromBytes(Gif)));
+			if ((gif is ByteArrayData))
+				player = new GifPlayer(GifDecoder.parseByteArray(gif));
+			else if ((gif is Bytes))
+				player = new GifPlayer(GifDecoder.parseByteArray(ByteArray.fromBytes(gif)));
 			else // String case
-				player = new GifPlayer(GifDecoder.parseByteArray(Assets.getBytes(Std.string(Gif))));
+				player = new GifPlayer(GifDecoder.parseByteArray(Assets.getBytes(Std.string(gif))));
 
-			loadGraphic(player.data, false, 0, 0, Unique, Key);
+			loadGraphic(player.data, false, 0, 0, unique, key);
 		}
 		else
 		{
-			if ((Gif is ByteArrayData))
-				map = GifRenderer.createMap(GifDecoder.parseByteArray(Gif));
-			else if ((Gif is Bytes))
-				map = GifRenderer.createMap(GifDecoder.parseByteArray(ByteArray.fromBytes(Gif)));
+			if ((gif is ByteArrayData))
+				map = GifRenderer.createMap(GifDecoder.parseByteArray(gif));
+			else if ((gif is Bytes))
+				map = GifRenderer.createMap(GifDecoder.parseByteArray(ByteArray.fromBytes(gif)));
 			else // String case
-				map = GifRenderer.createMap(GifDecoder.parseByteArray(Assets.getBytes(Std.string(Gif))));
+				map = GifRenderer.createMap(GifDecoder.parseByteArray(Assets.getBytes(Std.string(gif))));
 
-			loadGraphic(map.data, true, map.width, map.height, Unique, Key);
+			loadGraphic(map.data, true, map.width, map.height, unique, key);
 		}
 
 		return this;
