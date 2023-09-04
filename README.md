@@ -1,5 +1,7 @@
 # flxgif
 
+![](https://img.shields.io/github/repo-size/MAJigsaw77/flxgif) ![](https://badgen.net/github/open-issues/MAJigsaw77/flxgif) ![](https://badgen.net/badge/license/MIT/green)
+
 [Yagp's Gif Player](https://github.com/yanrishatum/yagp/) for HaxeFlixel.
 
 ### Installation
@@ -24,3 +26,7 @@ nikki.screenCenter();
 nikki.antialiasing = true;
 add(nikki);
 ```
+
+### Licensing
+
+**flxgif** is made available under the **MIT License**. Check [LICENSE](./LICENSE) for more information.
