@@ -99,7 +99,7 @@ class FlxGifSprite extends FlxSprite
 		return this;
 	}
 
-	override function update(elapsed:Float):Void
+	public override function update(elapsed:Float):Void
 	{
 		if (player != null)
 			player.update(elapsed);
@@ -107,7 +107,7 @@ class FlxGifSprite extends FlxSprite
 		super.update(elapsed);
 	}
 
-	override function destroy():Void
+	public override function destroy():Void
 	{
 		if (player != null)
 		{
