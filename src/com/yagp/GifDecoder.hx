@@ -74,17 +74,7 @@ class GifDecoder
 		#if flash
 		return parseBytes(Bytes.ofData(byteArray));
 		#elseif js
-		#if (haxe >= "3.2.0")
-		return parseBytes(Bytes.ofData(byteArray.byteView.buffer)); // In newest 3.2 haxe Uint8Array is BytesData
-		#else
-		var bytes:Bytes = Bytes.alloc(byteArray.length);
-		byteArray.position = 0;
-
-		for (i in 0...byteArray.length)
-			bytes.set(i, byteArray.readByte());
-
-		return parseBytes(bytes);
-		#end
+		return parseBytes(Bytes.ofData(byteArray.byteView.buffer));
 		#else
 		return parseBytes(byteArray);
 		#end
@@ -103,7 +93,7 @@ class GifDecoder
 	/**
 	 * Decodes Gif file from Bytes data stream asynchonously
 	 *
-	 * Note: Supported only sys targets!
+	 * Note: Supported only threaded targets!
 	 * @param bytes Input data stream.
 	 * @param completeHandler Callback to which send decoded Gif file.
 	 * @param errorHandler Callback to which send reports about occured error while decoding Gif file.
@@ -123,7 +113,7 @@ class GifDecoder
 	/**
 	 * Decodes Gif file from ByteArray data stream asynchonously
 	 *
-	 * Note: Supported only sys targets!
+	 * Note: Supported only threaded targets!
 	 * @param byteArray Input data stream.
 	 * @param completeHandler Callback to which send decoded Gif file.
 	 * @param errorHandler Callback to which send reports about occured error while decoding Gif file.
@@ -143,7 +133,7 @@ class GifDecoder
 	/**
 	 * Decodes Gif file from String asynchonously
 	 *
-	 * Note: Supported only sys targets!
+	 * Note: Supported only threaded targets!
 	 * @param text Input String data.
 	 * @param completeHandler Callback to which send decoded Gif file.
 	 * @param errorHandler Callback to which send reports about occured error while decoding Gif file.
