@@ -35,7 +35,7 @@ import openfl.display.Shape;
 import openfl.events.Event;
 import openfl.Lib;
 import openfl.utils.ByteArray;
-#if sys
+#if (target.threaded)
 import sys.thread.Thread;
 #end
 
@@ -79,8 +79,10 @@ class GifDecoder
 		#else
 		var bytes:Bytes = Bytes.alloc(byteArray.length);
 		byteArray.position = 0;
+
 		for (i in 0...byteArray.length)
 			bytes.set(i, byteArray.readByte());
+
 		return parseBytes(bytes);
 		#end
 		#else
@@ -109,11 +111,11 @@ class GifDecoder
 	 */
 	public static function parseBytesAsync(bytes:Bytes, completeHandler:Gif->Void, errorHandler:Dynamic->Void):Bool
 	{
-		#if sys
-		var decoder:GifDecoder = new GifDecoder(new GifBytes(bytes));
-		return decoder.decodeAsync(completeHandler, errorHandler);
+		#if (target.threaded)
+		return new GifDecoder(new GifBytes(bytes)).decodeAsync(completeHandler, errorHandler);
 		#else
 		trace("Asynchronous parsing currently only supported on sys platforms.");
+
 		return false;
 		#end
 	}
@@ -129,10 +131,11 @@ class GifDecoder
 	 */
 	public static inline function parseByteArrayAsync(byteArray:ByteArray, completeHandler:Gif->Void, errorHandler:Dynamic->Void):Bool
 	{
-		#if sys
+		#if (target.threaded)
 		return parseBytesAsync(byteArray, completeHandler, errorHandler);
 		#else
 		trace("Asynchronous parsing currently only supported on sys platforms.");
+
 		return false;
 		#end
 	}
@@ -148,15 +151,16 @@ class GifDecoder
 	 */
 	public static inline function parseTextAsync(text:String, completeHandler:Gif->Void, errorHandler:Dynamic->Void):Bool
 	{
-		#if sys
+		#if (target.threaded)
 		return parseBytesAsync(Bytes.ofString(text), completeHandler, errorHandler);
 		#else
 		trace("Asynchronous parsing currently only supported on sys platforms.");
+
 		return false;
 		#end
 	}
 
-	#if sys
+	#if (target.threaded)
 	private static var _asyncDecoders:Array<GifDecoder>;
 	private static var _asyncDecoderChecker:Shape; // DisplayObject;
 
@@ -175,6 +179,7 @@ class GifDecoder
 		while (i < _asyncDecoders.length)
 		{
 			var dec:GifDecoder = _asyncDecoders[i];
+
 			if (dec._done)
 			{
 				if (dec._completeHandler != null)
@@ -193,6 +198,7 @@ class GifDecoder
 				_asyncDecoders.remove(dec);
 				continue;
 			}
+
 			i++;
 		}
 	}
@@ -224,7 +230,7 @@ class GifDecoder
 	private var _globalColorTable:Array<Int>;
 
 	// Async
-	#if sys
+	#if (target.threaded)
 	private var _completeHandler:Gif->Void;
 	private var _errorHandler:Dynamic->Void;
 	private var _done:Bool;
@@ -245,27 +251,31 @@ class GifDecoder
 	 */
 	public function decodeAsync(completeHandler:Gif->Void, errorHandler:Dynamic->Void):Bool
 	{
-		#if sys
+		#if (target.threaded)
 		if (_input == null)
 			return false;
+
 		if (_asyncDecoders == null)
 			init();
+
 		this._done = false;
 		this._error = false;
 		this._completeHandler = completeHandler;
 		this._errorHandler = errorHandler;
 		_asyncDecoders.push(this);
 		Thread.create(_decodeAsync);
+
 		return true;
 		#else
 		trace("Asynchronous parsing currently only supported on sys platforms.");
+
 		return false;
 		#end
 	}
 
 	private function _decodeAsync():Void
 	{
-		#if sys
+		#if (target.threaded)
 		try
 		{
 			decodeGif();
@@ -294,6 +304,7 @@ class GifDecoder
 		{
 			// Logic screen descriptor
 			var lsd:LSD = new LSD(_input);
+
 			this.gif.lsd = lsd;
 
 			// Global color table
@@ -305,6 +316,7 @@ class GifDecoder
 			}
 
 			readBlock();
+
 			_graphicControlExtension = null;
 			_globalColorTable = null;
 			_input = null;
@@ -313,15 +325,18 @@ class GifDecoder
 		{
 			throw "This is not a GIF file, or header invalid.";
 		}
+
 		return this.gif;
 	}
 
 	private function readBlock():Void
 	{
 		var id:Int;
+
 		while (true)
 		{
 			id = _input.readByte();
+
 			switch (id)
 			{
 				// Image descriptor / Image
@@ -339,8 +354,7 @@ class GifDecoder
 
 	private function readExtension():Void
 	{
-		var subId:Int = _input.readByte();
-		switch (subId)
+		switch (_input.readByte())
 		{
 			// Graphics control extension
 			case 0xF9:
@@ -351,6 +365,7 @@ class GifDecoder
 					return;
 				}
 				#end
+
 				_graphicControlExtension = new GraphicsControl(_input);
 			// Program extension block
 			case 0xFF:
@@ -372,6 +387,7 @@ class GifDecoder
 
 		// Extension name
 		_input.position++; // Skip block size (0x0B);
+
 		var name:String = _input.readUTFBytes(8);
 		var version:String = _input.readUTFBytes(3);
 
@@ -398,8 +414,10 @@ class GifDecoder
 
 		// Color table set
 		var table:Array<Int> = _globalColorTable;
+
 		if (imageDescriptor.localColorTable)
 			table = this.readColorTable(imageDescriptor.localColorTableSize);
+
 		if (table == null)
 		{
 			throw "Image didn't have color table!";
@@ -432,9 +450,11 @@ class GifDecoder
 	{
 		// Is header valid?
 		var valid:Bool = _input.readUTFBytes(3) == "GIF";
+
 		if (valid)
 		{
 			var version:String = _input.readUTFBytes(3);
+
 			if (version == "87a")
 				this.gif.version = GifVersion.GIF87a;
 			else if (version == "89a")
@@ -459,6 +479,7 @@ class GifDecoder
 	private function readColorTable(colorsCount:Int):Array<Int>
 	{
 		var result:Array<Int> = new Array<Int>();
+
 		for (i in 0...colorsCount)
 		{
 			result[i] = 0xFF000000 | // A
@@ -466,6 +487,7 @@ class GifDecoder
 					_input.readByte() << 8 | // G
 						_input.readByte(); // B
 		}
+
 		return result;
 	}
 
@@ -479,6 +501,7 @@ class GifDecoder
 	private function skipBlock():Void
 	{
 		var blockSize:Int = 0;
+
 		do
 		{
 			blockSize = _input.readByte();
