@@ -22,7 +22,6 @@
 package com.yagp;
 
 import com.yagp.structs.ExtensionFactory;
-import haxe.io.Bytes;
 import com.yagp.structs.GifBytes;
 import com.yagp.structs.GifFrame;
 import com.yagp.structs.GifVersion;
@@ -31,10 +30,11 @@ import com.yagp.structs.GraphicsDecoder;
 import com.yagp.structs.ImageDescriptor;
 import com.yagp.structs.LSD;
 import com.yagp.structs.NetscapeExtension;
+import haxe.io.Bytes;
 import openfl.display.Shape;
 import openfl.events.Event;
-import openfl.Lib;
 import openfl.utils.ByteArray;
+import openfl.Lib;
 #if (target.threaded)
 import sys.thread.Thread;
 #end
@@ -42,9 +42,7 @@ import sys.thread.Thread;
 /**
  * The GIF reader
  *
- * How to use:
- *
- * `var gif:Gif = GifDecoder.parseBytes(inputGifFile);`
+ * How to use: `var gif:Gif = GifDecoder.parseBytes(inputGifFile);`
  */
 class GifDecoder
 {
@@ -52,7 +50,9 @@ class GifDecoder
 
 	/**
 	 * Decodes Gif file from Bytes data stream.
+	 *
 	 * @param bytes Input file data stream.
+	 *
 	 * @return Decoded Gif file.
 	 */
 	public static function parseBytes(bytes:Bytes):Gif
@@ -65,8 +65,10 @@ class GifDecoder
 	/**
 	 * Decodes Gif file from ByteArray data stream.
 	 *
-	 * Note: It just converts ByteArray to Bytes (until haxe 3.2 it'll be slow on HTML5 target!)
+	 * Note: It just converts ByteArray to Bytes
+	 *
 	 * @param byteArray Input data stream.
+	 *
 	 * @return Decoded Gif file.
 	 */
 	public static inline function parseByteArray(byteArray:ByteArray):Gif
@@ -82,7 +84,9 @@ class GifDecoder
 
 	/**
 	 * Decodes Gif file from String.
+	 *
 	 * @param text Input String data.
+	 *
 	 * @return Decoded Gif file.
 	 */
 	public static inline function parseText(text:String):Gif
@@ -94,9 +98,11 @@ class GifDecoder
 	 * Decodes Gif file from Bytes data stream asynchonously
 	 *
 	 * Note: Supported only threaded targets!
+	 *
 	 * @param bytes Input data stream.
 	 * @param completeHandler Callback to which send decoded Gif file.
 	 * @param errorHandler Callback to which send reports about occured error while decoding Gif file.
+	 *
 	 * @return true, if async decoding started successfully, false othervise.
 	 */
 	public static function parseBytesAsync(bytes:Bytes, completeHandler:Gif->Void, errorHandler:Dynamic->Void):Bool
@@ -114,9 +120,11 @@ class GifDecoder
 	 * Decodes Gif file from ByteArray data stream asynchonously
 	 *
 	 * Note: Supported only threaded targets!
+	 *
 	 * @param byteArray Input data stream.
 	 * @param completeHandler Callback to which send decoded Gif file.
 	 * @param errorHandler Callback to which send reports about occured error while decoding Gif file.
+	 *
 	 * @return true, if async decoding started successfully, false othervise.
 	 */
 	public static inline function parseByteArrayAsync(byteArray:ByteArray, completeHandler:Gif->Void, errorHandler:Dynamic->Void):Bool
@@ -134,9 +142,11 @@ class GifDecoder
 	 * Decodes Gif file from String asynchonously
 	 *
 	 * Note: Supported only threaded targets!
+	 *
 	 * @param text Input String data.
 	 * @param completeHandler Callback to which send decoded Gif file.
 	 * @param errorHandler Callback to which send reports about occured error while decoding Gif file.
+	 *
 	 * @return true, if async decoding started successfully, false othervise.
 	 */
 	public static inline function parseTextAsync(text:String, completeHandler:Gif->Void, errorHandler:Dynamic->Void):Bool
@@ -166,6 +176,7 @@ class GifDecoder
 	private static function checkAsyncDecoders(e:Event):Void
 	{
 		var i:Int = 0;
+
 		while (i < _asyncDecoders.length)
 		{
 			var dec:GifDecoder = _asyncDecoders[i];
@@ -174,8 +185,10 @@ class GifDecoder
 			{
 				if (dec._completeHandler != null)
 					dec._completeHandler(dec.gif);
+
 				dec._completeHandler = null;
 				dec._errorHandler = null;
+
 				_asyncDecoders.remove(dec);
 				continue;
 			}
@@ -183,8 +196,10 @@ class GifDecoder
 			{
 				if (dec._errorHandler != null)
 					dec._errorHandler(dec._errorMessage);
+
 				dec._completeHandler = null;
 				dec._errorHandler = null;
+
 				_asyncDecoders.remove(dec);
 				continue;
 			}
@@ -235,8 +250,10 @@ class GifDecoder
 
 	/**
 	 * Start asynchronous decoding of input data stream.
+	 *
 	 * @param completeHandler Callback to which send decoded Gif file.
 	 * @param errorHandler Callback to which send reports about occured error while decoding Gif file.
+	 *
 	 * @return true, if async decoding started successfully, false othervise.
 	 */
 	public function decodeAsync(completeHandler:Gif->Void, errorHandler:Dynamic->Void):Bool
@@ -252,7 +269,9 @@ class GifDecoder
 		this._error = false;
 		this._completeHandler = completeHandler;
 		this._errorHandler = errorHandler;
+
 		_asyncDecoders.push(this);
+
 		Thread.create(_decodeAsync);
 
 		return true;
@@ -269,6 +288,7 @@ class GifDecoder
 		try
 		{
 			decodeGif();
+
 			this._done = true;
 		}
 		catch (e:Dynamic)
@@ -286,7 +306,9 @@ class GifDecoder
 	{
 		if (_input == null)
 			return null;
+
 		_input.position = 0;
+
 		// Init GIF
 		this.gif = new Gif();
 
@@ -463,7 +485,9 @@ class GifDecoder
 	 * Reads color table.
 	 * Structure of Color Tables:
 	 * RRGGBB RRGGBB RRGGBB
+	 *
 	 * @param colorsCount Count of colors in color table.
+	 *
 	 * @return Vector.<uint> with readed colors.
 	 */
 	private function readColorTable(colorsCount:Int):Array<Int>
