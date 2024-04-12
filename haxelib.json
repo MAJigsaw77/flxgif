@@ -1,20 +1,20 @@
 {
-	"name":"flxgif",
-	"url":"https://github.com/MAJigsaw77/flxgif",
-	"license":"MIT",
-	"tags":[
+	"name": "flxgif",
+	"url": "https://github.com/MAJigsaw77/flxgif",
+	"license": "MIT",
+	"tags": [
 		"haxe",
 		"gif",
 		"haxeflixel"
 	],
-	"description":"Yagp's Gif Player for HaxeFlixel.",
-	"version":"1.0.2",
-	"releasenote":"Added `asMap` option to FlxGifSprite's loadGif function.",
-	"contributors":[
+	"description": "Yagp's Gif Player for HaxeFlixel.",
+	"version": "1.0.2",
+	"releasenote": "Added `asMap` option to FlxGifSprite's loadGif function.",
+	"contributors": [
 		"MAJigsaw77"
 	],
-	"classPath":"src",
-	"dependencies":{
-		"yagp":""
+	"classPath": "src",
+	"dependencies": {
+		"yagp": ""
 	}
 }
