@@ -13,7 +13,7 @@
 	"contributors": [
 		"MAJigsaw77"
 	],
-	"classPath": "src",
+	"classPath": "source",
 	"dependencies": {
 		"yagp": ""
 	}

@@ -2,5 +2,5 @@
 <extension>
 	<haxelib name="yagp" />
 
-	<source path="src" />
+	<source path="source" />
 </extension>
