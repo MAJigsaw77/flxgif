@@ -32,13 +32,14 @@ class FlxGifSprite extends FlxSprite
 	 * Creates a `FlxGifSprite` at a specified position with a specified gif.
 	 * If none is provided, a 16x16 image of the HaxeFlixel logo is used.
 	 *
-	 * @param   x               The initial X position of the sprite.
-	 * @param   y               The initial Y position of the sprite.
-	 * @param   simpleGif       The gif you want to display
+	 * @param x The initial X position of the sprite.
+	 * @param y The initial Y position of the sprite.
+	 * @param simpleGif The gif you want to display
 	 */
-	public function new(x:Float = 0, y:Float = 0, ?simpleGif:FlxGifAsset):Void
+	public function new(?x:Float = 0, ?y:Float = 0, ?simpleGif:FlxGifAsset):Void
 	{
 		super(x, y);
+
 		if (simpleGif != null)
 			loadGif(simpleGif);
 	}
