@@ -10,8 +10,6 @@ import flixel.addons.display.FlxBackdrop;
 import flixel.graphics.FlxGraphic;
 import flixel.util.FlxAxes;
 import flixel.util.FlxDestroyUtil;
-import flixel.FlxG;
-import flixel.FlxSprite;
 import flxgif.FlxGifAsset;
 import haxe.io.Bytes;
 import openfl.utils.Assets;

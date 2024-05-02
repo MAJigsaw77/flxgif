@@ -5,7 +5,6 @@ import com.yagp.GifPlayer;
 import com.yagp.GifRenderer;
 import flixel.graphics.FlxGraphic;
 import flixel.util.FlxDestroyUtil;
-import flixel.FlxG;
 import flixel.FlxSprite;
 import flxgif.FlxGifAsset;
 import haxe.io.Bytes;
