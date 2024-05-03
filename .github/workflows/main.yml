@@ -123,5 +123,5 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: androidBuild
-          path: samples/export/android/bin/app/build/outputs/apk/debug
+          path: sample/export/android/bin/app/build/outputs/apk/debug
           if-no-files-found: warn
