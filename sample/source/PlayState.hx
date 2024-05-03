@@ -28,7 +28,7 @@ class PlayState extends FlxState
 		{
 			loading.visible = false;
 
-			var spamton:FlxGifBackdrop = new FlxGifBackdrop(XY, 0, 0));
+			var spamton:FlxGifBackdrop = new FlxGifBackdrop(XY, 0, 0);
 			spamton.antialiasing = true;
 			spamton.loadGif(bytes);
 			spamton.screenCenter();
