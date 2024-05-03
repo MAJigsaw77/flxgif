@@ -41,7 +41,7 @@ class FlxGifBackdrop extends FlxBackdrop
 	#if (flixel_addons >= version("3.2.1"))
 	public function new(?gif:FlxGifAsset, repeatAxes = XY, spacingX = 0.0, spacingY = 0.0):Void
 	{
-		super(lrepeatAxes, spacingX, spacingY);
+		super(repeatAxes, spacingX, spacingY);
 
 		if (gif != null)
 			loadGif(gif);
