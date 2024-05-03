@@ -9,7 +9,7 @@
 	],
 	"description": "Yagp's Gif Player for HaxeFlixel.",
 	"version": "1.0.2",
-	"releasenote": "Added `asMap` option to FlxGifSprite's loadGif function.",
+	"releasenote": "Added FlxGifBackdrop.",
 	"contributors": [
 		"MAJigsaw77"
 	],
