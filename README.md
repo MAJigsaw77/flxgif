@@ -20,11 +20,11 @@ haxelib git flxgif https://github.com/MAJigsaw77/flxgif.git
 ```haxe
 import flxgif.FlxGifSprite;
 
-var nikki:FlxGifSprite = new FlxGifSprite(0, 0);
-nikki.loadGif('assets/nikki.gif');
-nikki.screenCenter();
-nikki.antialiasing = true;
-add(nikki);
+var gif:FlxGifSprite = new FlxGifSprite(0, 0);
+gif.loadGif('assets/file.gif');
+gif.screenCenter();
+gif.antialiasing = true;
+add(gif);
 ```
 
 ### Licensing

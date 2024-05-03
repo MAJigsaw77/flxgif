@@ -22,17 +22,17 @@ class PlayState extends FlxState
 		loading.antialiasing = true;
 		add(loading);
 
-		Assets.loadBytes('assets/nikki.gif').onComplete(function(bytes:ByteArray):Void
+		super.create();
+
+		Assets.loadBytes('assets/Spamton_overworld_laughing.gif').onComplete(function(bytes:ByteArray):Void
 		{
 			loading.visible = false;
 
-			var nikki:FlxGifSprite = new FlxGifSprite(0, 0);
-			nikki.antialiasing = true;
-			nikki.loadGif(bytes);
-			nikki.screenCenter();
-			add(nikki);
+			var spamton:FlxGifBackdrop = new FlxGifBackdrop(XY, 0, 0));
+			spamton.antialiasing = true;
+			spamton.loadGif(bytes);
+			spamton.screenCenter();
+			add(spamton);
 		});
-
-		super.create();
 	}
 }

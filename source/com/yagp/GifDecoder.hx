@@ -73,13 +73,7 @@ class GifDecoder
 	 */
 	public static inline function parseByteArray(byteArray:ByteArray):Gif
 	{
-		#if flash
-		return parseBytes(Bytes.ofData(byteArray));
-		#elseif js
-		return parseBytes(Bytes.ofData(byteArray.byteView.buffer));
-		#else
-		return parseBytes(byteArray);
-		#end
+		return parseBytes(cast(byteArray, Bytes));
 	}
 
 	/**
