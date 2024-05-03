@@ -1,0 +1,127 @@
+name: Testing
+on:
+  push:
+    branches: main
+    paths-ignore:
+      - '.github/workflows/format.yml'
+      - 'LICENSE'
+      - 'README.md'
+      - 'haxelib.json'
+      - 'hxformat.json'
+  workflow_dispatch:
+jobs:
+  Desktop:
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-13, ubuntu-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+        with:
+          submodules: true
+
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: 4.3.4
+
+      - name: Installing Haxe Libraries
+        run: |
+          haxelib install hxcpp --quiet
+          haxelib install lime --quiet
+          haxelib install openfl --quiet
+          haxelib install flixel --quiet
+          haxelib install flixel-addons --quiet
+          haxelib install yagp --quiet
+          haxelib dev flxgif .
+
+      - name: List of installed Haxe Libraries
+        run: haxelib list
+
+      - name: Building Windows
+        if: startsWith(matrix.os, 'windows')
+        run: cd sample && haxelib run lime build windows -debug
+
+      - name: Building MacOS
+        if: startsWith(matrix.os, 'macos')
+        run: cd sample && haxelib run lime build mac -debug && tar -zcvf build.tar.gz export/macos/bin
+
+      - name: Building Linux
+        if: startsWith(matrix.os, 'ubuntu')
+        run: cd sample && haxelib run lime build linux -debug && tar -zcvf build.tar.gz export/linux/bin
+
+      - name: Upload Artifact Windows
+        if: startsWith(matrix.os, 'windows')
+        uses: actions/upload-artifact@main
+        with:
+          name: windowsBuild
+          path: sample/export/windows/bin
+          if-no-files-found: warn
+
+      - name: Upload Artifact MacOS
+        if: startsWith(matrix.os, 'macos')
+        uses: actions/upload-artifact@main
+        with:
+          name: macBuild
+          path: sample/build.tar.gz
+          if-no-files-found: warn
+
+      - name: Upload Artifact Linux
+        if: startsWith(matrix.os, 'ubuntu')
+        uses: actions/upload-artifact@main
+        with:
+          name: linuxBuild
+          path: sample/build.tar.gz
+          if-no-files-found: warn
+  Android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@main
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: 4.3.4
+
+      - name: Installing Libraries
+        run: |
+          haxelib install lime --quiet
+          haxelib install openfl --quiet
+          haxelib install flixel --quiet
+          haxelib install flixel-addons --quiet
+          haxelib install yagp --quiet
+          haxelib dev flxgif .
+          haxelib install extension-androidtools --quiet --skip-dependencies
+
+      - name: Setup Git hxcpp
+        run: haxelib git hxcpp https://github.com/HaxeFoundation/hxcpp.git --quiet && haxelib run lime rebuild hxcpp
+
+      - name: List of installed Haxe Libraries
+        run: haxelib list
+
+      - name: Configure Android
+        run: |
+          haxelib run lime setup -alias -y
+          haxelib run lime config ANDROID_SDK $ANDROID_HOME
+          haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_ROOT
+          haxelib run lime config JAVA_HOME $JAVA_HOME
+          haxelib run lime config ANDROID_SETUP true
+
+      - name: Building
+        run: cd sample && haxelib run lime build android -debug
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: androidBuild
+          path: samples/export/android/bin/app/build/outputs/apk/debug
+          if-no-files-found: warn
