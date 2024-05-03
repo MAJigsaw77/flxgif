@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xmlns="http://lime.openfl.org/project/1.0.4"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://lime.openfl.org/project/1.0.4 http://lime.openfl.org/xsd/project-1.0.4.xsd">
+
+	<!--Application Settings-->
+
+	<meta title="FlxGif Sample" packageName="com.majigsaw77.flxgif" package="com.majigsaw77.flxgif" version="0.0.1" company="MAJigsaw77" />
+
+	<app file="Sample" main="Main" path="export" preloader="flixel.system.FlxPreloader" />
+
+	<!--Architecture Settings-->
+
+	<architecture exclude="armv7" if="android" />
+
+	<!--Window Settings-->
+
+	<window orientation="landscape" width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" fullscreen="false" resizable="true" />
+
+	<window allow-high-dpi="true" unless="web" />
+	
+	<window fullscreen="true" resizable="false" if="mobile" />
+
+	<!--Path Settings-->
+
+	<assets path="assets" />
+
+	<source path="source" />
+
+	<!--Libraries-->
+
+	<haxelib name="flixel" />
+	<haxelib name="flixel-addons" />
+	<haxelib name="flxgif" />
+	<haxelib name="extension-androidtools" if="android" />
+	<haxelib name="hxcpp-debug-server" if="debug" unless="mobile" optional="true" />
+
+	<!--Libraries Settings-->
+
+	<haxedef name="FLX_NO_MOUSE" if="mobile" />
+	<haxedef name="FLX_NO_KEYBOARD" if="mobile" />
+	<haxedef name="FLX_NO_TOUCH" if="desktop" />
+	<haxedef name="FLX_NO_DEBUG" unless="debug" />
+
+	<section if="cpp">
+		<haxedef name="HXCPP_CHECK_POINTER" />
+		<haxedef name="HXCPP_STACK_LINE" />
+		<haxedef name="HXCPP_STACK_TRACE" />
+	</section>
+
+	<!--DPI Awareness-->
+
+	<haxedef name="openfl_dpi_aware" unless="web" />
+
+	<!--Undefinitions-->
+
+	<undefine name="openfl-disable-handle-error" if="debug" />
+
+	<!--Full Dead Code Elimination-->
+
+	<haxeflag name="-dce" value="full" />
+</project>
