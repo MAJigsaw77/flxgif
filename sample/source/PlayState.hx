@@ -1,13 +1,9 @@
 package;
 
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxState;
 import flxgif.FlxGifBackdrop;
 import flxgif.FlxGifSprite;
-import openfl.utils.Assets;
-import openfl.utils.ByteArray;
 
 class PlayState extends FlxState
 {
@@ -15,24 +11,11 @@ class PlayState extends FlxState
 	{
 		FlxG.cameras.bgColor = 0xFF131C1B;
 
-		var loading:FlxText = new FlxText(0, 0, FlxG.width - 20, 'Loading...', 48);
-		loading.setBorderStyle(OUTLINE, FlxColor.BLACK);
-		loading.active = false;
-		loading.screenCenter();
-		loading.antialiasing = true;
-		add(loading);
+		var spamton:FlxGifBackdrop = new FlxGifBackdrop('assets/Spamton_overworld_laughing.gif', XY, 0, 0);
+		spamton.velocity.set(-40, -40);
+		spamton.antialiasing = true;
+		add(spamton);
 
 		super.create();
-
-		Assets.loadBytes('assets/Spamton_overworld_laughing.gif').onComplete(function(bytes:ByteArray):Void
-		{
-			loading.visible = false;
-
-			var spamton:FlxGifBackdrop = new FlxGifBackdrop(XY, 0, 0);
-			spamton.antialiasing = true;
-			spamton.loadGif(bytes);
-			spamton.screenCenter();
-			add(spamton);
-		});
 	}
 }
