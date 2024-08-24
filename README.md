@@ -15,9 +15,6 @@ Or through `Git`, if you want the latest updates
 haxelib git flxgif https://github.com/MAJigsaw77/flxgif.git
 ```
 
-> [!TIP]
-> Don't use `gif` files that are really big or that have alot of frames, `Yagp` will not work so well and will cause lag.
-
 ### Basic Usage Example
 
 ```haxe
@@ -29,6 +26,9 @@ gif.screenCenter();
 gif.antialiasing = true;
 add(gif);
 ```
+
+> [!TIP]
+> Don't use `gif` files that are really big or that have alot of frames, `Yagp` will not work so well and will cause lag.
 
 ### Licensing
 
