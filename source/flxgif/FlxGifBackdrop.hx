@@ -18,17 +18,18 @@ import openfl.utils.ByteArray;
 /**
  * `FlxGifBackdrop` is made for showing infinitely scrolling gif backgrounds using FlxBackdrop.
  */
+@:nullSafety
 class FlxGifBackdrop extends FlxBackdrop
 {
 	/**
 	 * The Gif Player (warning: can be `null`).
 	 */
-	public var player(default, null):GifPlayer;
+	public var player(default, null):Null<GifPlayer>;
 
 	/**
 	 * The Gif SpriteMap (warning: can be `null`).
 	 */
-	public var map(default, null):GifMap;
+	public var map(default, null):Null<GifMap>;
 
 	/**
 	 * Creates an instance of the `FlxGifBackdrop` class, used to create infinitely scrolling gif backgrounds.
