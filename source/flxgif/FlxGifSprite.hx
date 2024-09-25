@@ -14,17 +14,18 @@ import openfl.utils.ByteArray;
 /**
  * `FlxGifSprite` is made for displaying gif files in HaxeFlixel as sprites.
  */
+@:nullSafety
 class FlxGifSprite extends FlxSprite
 {
 	/**
 	 * The Gif Player (warning: can be `null`).
 	 */
-	public var player(default, null):GifPlayer;
+	public var player(default, null):Null<GifPlayer>;
 
 	/**
 	 * The Gif SpriteMap (warning: can be `null`).
 	 */
-	public var map(default, null):GifMap;
+	public var map(default, null):Null<GifMap>;
 
 	/**
 	 * Creates a `FlxGifSprite` at a specified position with a specified gif.
